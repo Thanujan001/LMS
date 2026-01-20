@@ -8,7 +8,7 @@ const Navbar = ({ currentPage, onNavigate }) => {
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'courses', label: 'Courses', icon: '📚' },
+    { id: 'courses', label: 'Classes', icon: '📚' },
     { id: 'assignments', label: 'Assignments', icon: '📝' },
     { id: 'grades', label: 'Grades', icon: '📈' },
     { id: 'calendar', label: 'Calendar', icon: '📅' },
