@@ -9,7 +9,6 @@ const Courses = () => {
       id: 1,
       name: 'React Fundamentals',
       instructor: 'Dr. Sarah Smith',
-      lessons: ['Introduction to React', 'JSX & Components', 'State & Props', 'Hooks Overview'],
       timeTable: 'Mon, Wed, Fri - 10:00 AM',
       place: 'Room 201',
       duration: '12 weeks',
@@ -20,7 +19,6 @@ const Courses = () => {
       id: 2,
       name: 'JavaScript Advanced',
       instructor: 'Prof. Mike Johnson',
-      lessons: ['ES6+ Features', 'Async Programming', 'Closures', 'Prototypes'],
       timeTable: 'Tue, Thu - 2:00 PM',
       place: 'Room 305',
       duration: '10 weeks',
@@ -31,7 +29,6 @@ const Courses = () => {
       id: 3,
       name: 'Web Design Principles',
       instructor: 'Ms. Emily Davis',
-      lessons: ['Color Theory', 'Typography', 'Layout Design', 'User Experience'],
       timeTable: 'Mon, Wed - 1:00 PM',
       place: 'Room 102',
       duration: '8 weeks',
@@ -42,7 +39,6 @@ const Courses = () => {
       id: 4,
       name: 'Database Design',
       instructor: 'Dr. Wilson',
-      lessons: ['SQL Basics', 'Normalization', 'Joins & Queries', 'Indexing'],
       timeTable: 'Tue, Thu, Sat - 3:00 PM',
       place: 'Room 404',
       duration: '10 weeks',
@@ -170,17 +166,19 @@ const Courses = () => {
         </div>
       </div>
 
-      <div className="lessons-section">
-        <h4 className="lessons-title">📚 Lessons:</h4>
-        <div className="lessons-list">
-          {classItem.lessons.map((lesson, index) => (
-            <div key={index} className="lesson-item" style={{ borderLeftColor: classItem.color }}>
-              <span className="lesson-number">{index + 1}</span>
-              <span className="lesson-name">{lesson}</span>
-            </div>
-          ))}
+      {classItem.lessons && (
+        <div className="lessons-section">
+          <h4 className="lessons-title">📚 Lessons:</h4>
+          <div className="lessons-list">
+            {classItem.lessons.map((lesson, index) => (
+              <div key={index} className="lesson-item" style={{ borderLeftColor: classItem.color }}>
+                <span className="lesson-number">{index + 1}</span>
+                <span className="lesson-name">{lesson}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="class-action">
         <button 
@@ -192,6 +190,63 @@ const Courses = () => {
       </div>
     </div>
   );
+
+  const renderThreeParts = (classes, color) => {
+    const timeTableData = classes.map(c => ({ name: c.name, value: c.timeTable, color: c.color }));
+    const placesData = classes.map(c => ({ name: c.name, value: c.place, color: c.color }));
+    const lessonsData = classes.filter(c => c.lessons).map(c => ({ name: c.name, lessons: c.lessons, color: c.color }));
+
+    return (
+      <>
+        {/* Class Time Table Part */}
+        <div className="parts-section">
+          <h3 className="parts-title" style={{ borderLeftColor: color }}>⏱️ Class Time Table</h3>
+          <div className="parts-grid">
+            {timeTableData.map((item, idx) => (
+              <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
+                <h4 className="part-card-title">{item.name}</h4>
+                <p className="part-card-value">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Class Places Part */}
+        <div className="parts-section">
+          <h3 className="parts-title" style={{ borderLeftColor: color }}>📍 Class Places</h3>
+          <div className="parts-grid">
+            {placesData.map((item, idx) => (
+              <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
+                <h4 className="part-card-title">{item.name}</h4>
+                <p className="part-card-value">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Lessons Part */}
+        {lessonsData.length > 0 && (
+          <div className="parts-section">
+            <h3 className="parts-title" style={{ borderLeftColor: color }}>📚 Lessons</h3>
+            <div className="lessons-parts-grid">
+              {lessonsData.map((item, idx) => (
+                <div key={idx} className="lessons-part-card" style={{ borderLeftColor: item.color }}>
+                  <h4 className="lessons-part-title">{item.name}</h4>
+                  <ul className="lessons-part-list">
+                    {item.lessons.map((lesson, lidx) => (
+                      <li key={lidx} style={{ color: item.color }}>
+                        <span className="lesson-bullet">✓</span> {lesson}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
 
   return (
     <div className="classes-container">
@@ -246,7 +301,7 @@ const Courses = () => {
               <h2>🎓 Theory Classes - Conceptual Learning</h2>
               <p>Master the fundamentals with comprehensive theory-based classes</p>
             </div>
-            {theoryClasses.map(renderClassCard)}
+            {renderThreeParts(theoryClasses, '#667eea')}
           </>
         )}
         {selectedSection === 'revision' && (
@@ -255,7 +310,7 @@ const Courses = () => {
               <h2>🔄 Revision Classes - Quick Refresher</h2>
               <p>Revise and strengthen your concepts with focused revision sessions</p>
             </div>
-            {revisionClasses.map(renderClassCard)}
+            {renderThreeParts(revisionClasses, '#f5576c')}
           </>
         )}
         {selectedSection === 'paper' && (
@@ -264,7 +319,7 @@ const Courses = () => {
               <h2>📝 Paper Classes - Exam Preparation</h2>
               <p>Prepare for exams with practice papers and assessment tests</p>
             </div>
-            {paperClasses.map(renderClassCard)}
+            {renderThreeParts(paperClasses, '#4facfe')}
           </>
         )}
       </div>

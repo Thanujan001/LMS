@@ -342,4 +342,119 @@
   }
 }
 
+/* Three Parts Sections */
+.parts-section {
+  grid-column: 1 / -1;
+  margin-bottom: 3rem;
+}
 
+.parts-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 5px solid;
+  color: #2c3e50;
+}
+
+.parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.part-card {
+  background: white;
+  border-left: 5px solid;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.part-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.part-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+}
+
+.part-card-value {
+  font-size: 1rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+/* Lessons Parts Grid */
+.lessons-parts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.lessons-part-card {
+  background: white;
+  border-left: 5px solid;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.lessons-part-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.lessons-part-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #2c3e50;
+}
+
+.lessons-part-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lessons-part-list li {
+  padding: 0.75rem 0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.lessons-part-list li:last-child {
+  border-bottom: none;
+}
+
+.lesson-bullet {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .parts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lessons-parts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parts-title {
+    font-size: 1.2rem;
+  }
+}
