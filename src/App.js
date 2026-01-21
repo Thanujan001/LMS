@@ -5,7 +5,6 @@ import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Courses from './components/Courses/Courses';
-import Assignments from './components/Assignments/Assignments';
 import Profile from './components/Profile/Profile';
 import Progress from './components/Progress/Progress';
 
@@ -33,8 +32,6 @@ const LMSApp = () => {
         return <Dashboard />;
       case 'courses':
         return <Courses />;
-      case 'assignments':
-        return <Assignments />;
       case 'progress':
         return <Progress />;
       case 'grades':
