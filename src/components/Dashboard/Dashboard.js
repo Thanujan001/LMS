@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import Calendar from '../Calendar/Calendar';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -30,11 +31,6 @@ const Dashboard = () => {
     { week: 'Week 3', focus: 'UI/UX Design Principles', status: 'upcoming' },
     { week: 'Week 4', focus: 'Database Design & Optimization', status: 'upcoming' }
   ];
-
-  const calendarDays = Array.from({ length: 31 }, (_, i) => ({
-    day: i + 1,
-    hasEvent: Math.random() > 0.7
-  }));
 
   const deleteAnnouncement = (id) => {
     setAnnouncements(announcements.filter(ann => ann.id !== id));
@@ -88,25 +84,7 @@ const Dashboard = () => {
         </div>
 
         {/* Calendar */}
-        <div className="dashboard-section calendar-section">
-          <div className="section-header">
-            <h2>📅 Calendar</h2>
-            <span className="month-year">January 2024</span>
-          </div>
-          <div className="calendar">
-            <div className="calendar-header">
-              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-            </div>
-            <div className="calendar-grid">
-              {calendarDays.map(day => (
-                <div key={day.day} className={`calendar-day ${day.hasEvent ? 'has-event' : ''}`}>
-                  {day.day}
-                  {day.hasEvent && <div className="event-indicator"></div>}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Calendar isFullPage={false} />
       </div>
 
       {/* Monthly Plan */}

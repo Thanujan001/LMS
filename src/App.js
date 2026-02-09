@@ -6,6 +6,8 @@ import Navbar from './components/Navbar/Navbar';
 import Dashboard from './components/Dashboard/Dashboard';
 import Courses from './components/Courses/Courses';
 import Assignments from './components/Assignments/Assignments';
+import Calendar from './components/Calendar/Calendar';
+import TeacherCalendar from './components/TeacherCalendar/TeacherCalendar';
 import Profile from './components/Profile/Profile';
 import Progress from './components/Progress/Progress';
 
@@ -32,6 +34,7 @@ const LMSApp = () => {
       case 'dashboard':
         return <Dashboard />;
       case 'courses':
+      case 'classes':
         return <Courses />;
       case 'assignments':
         return <Assignments />;
@@ -39,8 +42,10 @@ const LMSApp = () => {
         return <Progress />;
       case 'grades':
         return <div className="page-placeholder">📈 Grades page coming soon!</div>;
+      case 'students':
+        return <div className="page-placeholder">👥 Students Management coming soon!</div>;
       case 'calendar':
-        return <div className="page-placeholder">📅 Calendar page coming soon!</div>;
+        return user?.role === 'teacher' ? <TeacherCalendar /> : <Calendar isFullPage={true} />;
       case 'profile':
         return <Profile />;
       default:
