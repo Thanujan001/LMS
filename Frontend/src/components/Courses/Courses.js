@@ -169,55 +169,72 @@ const Courses = () => {
   );
 
   const renderThreeParts = (classes, color) => {
+    if (classes.length === 0) {
+      return (
+        <div className="no-classes-found">
+          <span className="no-classes-icon">📂</span>
+          <h3>No Classes Available</h3>
+          <p>We couldn't find any classes in this category. Please check back later or contact your instructor.</p>
+        </div>
+      );
+    }
+
     const timeTableData = classes.map(c => ({ name: c.name, value: c.timeTable, color: c.color }));
     const placesData = classes.map(c => ({ name: c.name, value: c.place, color: c.color }));
-    const lessonsData = classes.filter(c => c.lessons).map(c => ({ name: c.name, lessons: c.lessons, color: c.color }));
+    const lessonsData = classes.filter(c => c.lessons && c.lessons.length > 0).map(c => ({ name: c.name, lessons: c.lessons, color: c.color }));
 
     return (
       <>
         {/* Class Time Table Part */}
-        <div className="parts-section">
-          <h3 className="parts-title" style={{ borderLeftColor: color }}>⏱️ Class Time Table</h3>
-          <div className="parts-grid">
-            {timeTableData.map((item, idx) => (
-              <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
-                <h4 className="part-card-title">{item.name}</h4>
-                <p className="part-card-value">{item.value}</p>
-                <div className="class-resources">
-                  <button className="resource-btn download-btn" style={{ background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}cc 100%)` }}>
-                    📥 Download Tutorial
-                  </button>
-                  <button className="resource-btn recordings-btn" style={{ background: `linear-gradient(135deg, ${item.color}dd 0%, ${item.color}aa 100%)` }}>
-                    🎥 Recordings
-                  </button>
-                  <button className="resource-btn join-btn" style={{ background: `linear-gradient(135deg, ${item.color}bb 0%, ${item.color}88 100%)` }}>
-                    🔗 Join Link
-                  </button>
-                </div>
-                {isTeacher && (
-                  <div className="admin-actions">
-                    <button className="edit-btn" onClick={() => handleOpenModal(classes.find(c => c.name === item.name))}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDelete(classes.find(c => c.name === item.name)._id)}>Delete</button>
+        {timeTableData.length > 0 && (
+          <div className="parts-section">
+            <h3 className="parts-title" style={{ borderLeftColor: color }}>⏱️ Class Time Table</h3>
+            <div className="parts-grid">
+              {timeTableData.map((item, idx) => (
+                <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
+                  <h4 className="part-card-title">{item.name}</h4>
+                  <p className="part-card-value">{item.value}</p>
+                  <div className="class-resources">
+                    <button className="resource-btn download-btn" style={{ background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}cc 100%)` }}>
+                      📥 Download Tutorial
+                    </button>
+                    <button className="resource-btn recordings-btn" style={{ background: `linear-gradient(135deg, ${item.color}dd 0%, ${item.color}aa 100%)` }}>
+                      🎥 Recordings
+                    </button>
+                    <button className="resource-btn join-btn" style={{ background: `linear-gradient(135deg, ${item.color}bb 0%, ${item.color}88 100%)` }}>
+                      🔗 Join Link
+                    </button>
                   </div>
-                )}
-              </div>
-            ))}
+                  {isTeacher && (
+                    <div className="admin-actions">
+                      <button className="edit-btn" onClick={() => handleOpenModal(classes.find(c => c.name === item.name))}>
+                        <span>✏️</span> Edit
+                      </button>
+                      <button className="delete-btn" onClick={() => handleDelete(classes.find(c => c.name === item.name)._id)}>
+                        <span>🗑️</span> Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-
+        )}
 
         {/* Class Places Part */}
-        <div className="parts-section">
-          <h3 className="parts-title" style={{ borderLeftColor: color }}>📍 Class Places</h3>
-          <div className="parts-grid">
-            {placesData.map((item, idx) => (
-              <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
-                <h4 className="part-card-title">{item.name}</h4>
-                <p className="part-card-value">{item.value}</p>
-              </div>
-            ))}
+        {placesData.length > 0 && (
+          <div className="parts-section">
+            <h3 className="parts-title" style={{ borderLeftColor: color }}>📍 Class Places</h3>
+            <div className="parts-grid">
+              {placesData.map((item, idx) => (
+                <div key={idx} className="part-card" style={{ borderLeftColor: item.color }}>
+                  <h4 className="part-card-title">{item.name}</h4>
+                  <p className="part-card-value">{item.value}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Lessons Part */}
         {lessonsData.length > 0 && (
