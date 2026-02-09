@@ -1,138 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Courses.css';
+import { useAuth } from '../../contexts/AuthContext';
+import { fetchClasses, addClass, updateClass, deleteClass } from '../../utils/api';
 
 const Courses = () => {
+  const { user } = useAuth();
+  const isTeacher = user?.role === 'teacher' || user?.role === 'admin';
+
   const [selectedSection, setSelectedSection] = useState('theory');
+  const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [editingClass, setEditingClass] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    instructor: user?.name || '',
+    type: 'theory',
+    lessons: '',
+    timeTable: '',
+    place: '',
+    duration: '',
+    students: 0,
+    color: '#667eea'
+  });
 
-  const theoryClasses = [
-    {
-      id: 1,
-      name: 'React Fundamentals',
-      instructor: 'Dr. Sarah Smith',
-      lessons: ['Components & JSX', 'State & Props', 'Hooks Overview', 'Component Lifecycle'],
-      timeTable: 'Mon, Wed, Fri - 10:00 AM',
-      place: 'Room 201',
-      duration: '12 weeks',
-      students: 150,
-      color: '#667eea'
-    },
-    {
-      id: 2,
-      name: 'JavaScript Advanced',
-      instructor: 'Prof. Mike Johnson',
-      lessons: ['ES6+ Features', 'Async Programming', 'Closures & Scope', 'Prototypes & OOP'],
-      timeTable: 'Tue, Thu - 2:00 PM',
-      place: 'Room 305',
-      duration: '10 weeks',
-      students: 200,
-      color: '#764ba2'
-    },
-    {
-      id: 3,
-      name: 'Web Design Principles',
-      instructor: 'Ms. Emily Davis',
-      lessons: ['Color Theory & Psychology', 'Typography & Fonts', 'Layout & Grid Systems', 'User Experience Design'],
-      timeTable: 'Mon, Wed - 1:00 PM',
-      place: 'Room 102',
-      duration: '8 weeks',
-      students: 120,
-      color: '#f093fb'
-    },
-    {
-      id: 4,
-      name: 'Database Design',
-      instructor: 'Dr. Wilson',
-      lessons: ['Relational Database Concepts', 'Normalization & Schema', 'SQL Query Fundamentals', 'Indexing & Optimization'],
-      timeTable: 'Tue, Thu, Sat - 3:00 PM',
-      place: 'Room 404',
-      duration: '10 weeks',
-      students: 95,
-      color: '#56ab2f'
-    }
-  ];
+  useEffect(() => {
+    loadClasses();
+  }, []);
 
-  const revisionClasses = [
-    {
-      id: 5,
-      name: 'React Quick Review',
-      instructor: 'Dr. Sarah Smith',
-      lessons: ['Components Review', 'Hooks Deep Dive', 'Performance Tips', 'Common Patterns'],
-      timeTable: 'Sat - 4:00 PM',
-      place: 'Room 201',
-      duration: '4 weeks',
-      students: 80,
-      color: '#f5576c'
-    },
-    {
-      id: 6,
-      name: 'JavaScript Revision',
-      instructor: 'Prof. Mike Johnson',
-      lessons: ['Core Concepts', 'Problem Solving', 'Best Practices', 'Code Review'],
-      timeTable: 'Sun - 2:00 PM',
-      place: 'Room 305',
-      duration: '3 weeks',
-      students: 110,
-      color: '#fa7e1e'
-    },
-    {
-      id: 7,
-      name: 'Design Fundamentals Recap',
-      instructor: 'Ms. Emily Davis',
-      lessons: ['Design Principles', 'Visual Hierarchy', 'Responsive Design', 'Prototyping'],
-      timeTable: 'Sat - 11:00 AM',
-      place: 'Room 102',
-      duration: '4 weeks',
-      students: 70,
-      color: '#a8e063'
+  const loadClasses = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchClasses();
+      setClasses(data);
+      setError(null);
+    } catch (err) {
+      setError('Failed to load classes. Please make sure the backend is running.');
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
-  const paperClasses = [
-    {
-      id: 8,
-      name: 'React Exam Prep',
-      instructor: 'Dr. Sarah Smith',
-      lessons: ['Mock Tests', 'Practice Questions', 'Time Management', 'Exam Tips'],
-      timeTable: 'Sun - 10:00 AM',
-      place: 'Room 201',
-      duration: '2 weeks',
-      students: 140,
-      color: '#00d4ff'
-    },
-    {
-      id: 9,
-      name: 'JavaScript Mock Exams',
-      instructor: 'Prof. Mike Johnson',
-      lessons: ['Question Analysis', 'Solution Strategies', 'Speed Practice', 'Final Review'],
-      timeTable: 'Sat - 3:00 PM',
-      place: 'Room 305',
-      duration: '2 weeks',
-      students: 160,
-      color: '#4facfe'
-    },
-    {
-      id: 10,
-      name: 'Design Assessment Test',
-      instructor: 'Ms. Emily Davis',
-      lessons: ['Design Challenges', 'Portfolio Review', 'Interview Prep', 'Project Showcase'],
-      timeTable: 'Sun - 6:00 PM',
-      place: 'Room 102',
-      duration: '1 week',
-      students: 85,
-      color: '#43e97b'
-    },
-    {
-      id: 11,
-      name: 'Database Final Exam',
-      instructor: 'Dr. Wilson',
-      lessons: ['Complex Queries', 'Performance Issues', 'Real-world Scenarios', 'Case Studies'],
-      timeTable: 'Sat - 2:00 PM',
-      place: 'Room 404',
-      duration: '2 weeks',
-      students: 75,
-      color: '#fa709a'
+  const theoryClasses = classes.filter(c => c.type === 'theory');
+  const revisionClasses = classes.filter(c => c.type === 'revision');
+  const paperClasses = classes.filter(c => c.type === 'paper');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleOpenModal = (cls = null) => {
+    if (cls) {
+      setEditingClass(cls);
+      setFormData({
+        ...cls,
+        lessons: cls.lessons.join(', ')
+      });
+    } else {
+      setEditingClass(null);
+      setFormData({
+        name: '',
+        instructor: user?.name || '',
+        type: 'theory',
+        lessons: '',
+        timeTable: '',
+        place: '',
+        duration: '',
+        students: 0,
+        color: '#667eea'
+      });
     }
-  ];
+    setShowModal(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...formData,
+      lessons: formData.lessons.split(',').map(l => l.trim()).filter(l => l !== '')
+    };
+
+    try {
+      if (editingClass) {
+        await updateClass(editingClass._id, payload, user.role);
+      } else {
+        await addClass(payload, user.role);
+      }
+      setShowModal(false);
+      loadClasses();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this class?')) {
+      try {
+        await deleteClass(id, user.role);
+        loadClasses();
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+  };
 
   const renderClassCard = (classItem) => (
     <div key={classItem.id} className="class-card" style={{ borderLeftColor: classItem.color }}>
@@ -185,8 +158,8 @@ const Courses = () => {
       )}
 
       <div className="class-action">
-        <button 
-          className="btn-enroll" 
+        <button
+          className="btn-enroll"
           style={{ background: `linear-gradient(135deg, ${classItem.color} 0%, ${classItem.color}dd 100%)` }}
         >
           Join Class →
@@ -221,10 +194,17 @@ const Courses = () => {
                     🔗 Join Link
                   </button>
                 </div>
+                {isTeacher && (
+                  <div className="admin-actions">
+                    <button className="edit-btn" onClick={() => handleOpenModal(classes.find(c => c.name === item.name))}>Edit</button>
+                    <button className="delete-btn" onClick={() => handleDelete(classes.find(c => c.name === item.name)._id)}>Delete</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
+
 
         {/* Class Places Part */}
         <div className="parts-section">
@@ -268,10 +248,18 @@ const Courses = () => {
       <div className="classes-header">
         <h1>📚 All Classes</h1>
         <p>Choose your class type to continue learning</p>
+        {isTeacher && (
+          <button className="add-class-btn" onClick={() => handleOpenModal()}>
+            ➕ Add New Class
+          </button>
+        )}
       </div>
 
+      {loading && <div className="loading-spinner">Loading classes...</div>}
+      {error && <div className="error-message">{error}</div>}
+
       <div className="class-type-selector">
-        <button 
+        <button
           className={`type-btn ${selectedSection === 'theory' ? 'active' : ''}`}
           onClick={() => setSelectedSection('theory')}
           style={{
@@ -283,7 +271,7 @@ const Courses = () => {
           <span className="btn-text">Theory Classes</span>
           <span className="btn-count">{theoryClasses.length}</span>
         </button>
-        <button 
+        <button
           className={`type-btn ${selectedSection === 'revision' ? 'active' : ''}`}
           onClick={() => setSelectedSection('revision')}
           style={{
@@ -295,7 +283,7 @@ const Courses = () => {
           <span className="btn-text">Revision Classes</span>
           <span className="btn-count">{revisionClasses.length}</span>
         </button>
-        <button 
+        <button
           className={`type-btn ${selectedSection === 'paper' ? 'active' : ''}`}
           onClick={() => setSelectedSection('paper')}
           style={{
@@ -338,6 +326,56 @@ const Courses = () => {
           </>
         )}
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>{editingClass ? 'Edit Class' : 'Add New Class'}</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Class Name</label>
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} required />
+              </div>
+              <div className="form-group">
+                <label>Instructor</label>
+                <input type="text" name="instructor" value={formData.instructor} onChange={handleInputChange} required />
+              </div>
+              <div className="form-group">
+                <label>Type</label>
+                <select name="type" value={formData.type} onChange={handleInputChange}>
+                  <option value="theory">Theory</option>
+                  <option value="revision">Revision</option>
+                  <option value="paper">Paper</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Time Table</label>
+                <input type="text" name="timeTable" value={formData.timeTable} onChange={handleInputChange} placeholder="e.g. Mon, Wed - 10:00 AM" />
+              </div>
+              <div className="form-group">
+                <label>Place</label>
+                <input type="text" name="place" value={formData.place} onChange={handleInputChange} placeholder="e.g. Room 201" />
+              </div>
+              <div className="form-group">
+                <label>Duration</label>
+                <input type="text" name="duration" value={formData.duration} onChange={handleInputChange} placeholder="e.g. 12 weeks" />
+              </div>
+              <div className="form-group">
+                <label>Lessons (comma separated)</label>
+                <input type="text" name="lessons" value={formData.lessons} onChange={handleInputChange} placeholder="Lesson 1, Lesson 2" />
+              </div>
+              <div className="form-group">
+                <label>Theme Color</label>
+                <input type="color" name="color" value={formData.color} onChange={handleInputChange} />
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="cancel-btn" onClick={() => setShowModal(false)}>Cancel</button>
+                <button type="submit" className="submit-btn">{editingClass ? 'Update Class' : 'Create Class'}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
