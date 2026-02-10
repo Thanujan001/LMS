@@ -6,7 +6,7 @@ import { fetchClasses, addClass, updateClass, deleteClass } from '../../utils/ap
 const Courses = () => {
   const { user } = useAuth();
   const isTeacher = user?.role === 'teacher' || user?.role === 'admin';
-
+//
   const [selectedSection, setSelectedSection] = useState('theory');
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
