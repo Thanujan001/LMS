@@ -6,7 +6,7 @@ import { fetchClasses, addClass, updateClass, deleteClass } from '../../utils/ap
 const Courses = () => {
   const { user } = useAuth();
   const isTeacher = user?.role === 'teacher' || user?.role === 'admin';
-//
+  //
   const [selectedSection, setSelectedSection] = useState('theory');
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -107,67 +107,6 @@ const Courses = () => {
     }
   };
 
-  const renderClassCard = (classItem) => (
-    <div key={classItem.id} className="class-card" style={{ borderLeftColor: classItem.color }}>
-      <div className="class-header">
-        <div className="class-name-section">
-          <h3 className="class-name">{classItem.name}</h3>
-          <p className="class-instructor">👨‍🏫 {classItem.instructor}</p>
-        </div>
-        <div className="class-meta-badge" style={{ background: classItem.color }}>
-          <span className="student-count">👥 {classItem.students}</span>
-        </div>
-      </div>
-
-      <div className="class-info">
-        <div className="info-item">
-          <span className="info-icon">⏱️</span>
-          <div className="info-content">
-            <span className="info-label">Time Table</span>
-            <span className="info-value">{classItem.timeTable}</span>
-          </div>
-        </div>
-        <div className="info-item">
-          <span className="info-icon">📍</span>
-          <div className="info-content">
-            <span className="info-label">Place</span>
-            <span className="info-value">{classItem.place}</span>
-          </div>
-        </div>
-        <div className="info-item">
-          <span className="info-icon">⏳</span>
-          <div className="info-content">
-            <span className="info-label">Duration</span>
-            <span className="info-value">{classItem.duration}</span>
-          </div>
-        </div>
-      </div>
-
-      {classItem.lessons && (
-        <div className="lessons-section">
-          <h4 className="lessons-title">📚 Lessons:</h4>
-          <div className="lessons-list">
-            {classItem.lessons.map((lesson, index) => (
-              <div key={index} className="lesson-item" style={{ borderLeftColor: classItem.color }}>
-                <span className="lesson-number">{index + 1}</span>
-                <span className="lesson-name">{lesson}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="class-action">
-        <button
-          className="btn-enroll"
-          style={{ background: `linear-gradient(135deg, ${classItem.color} 0%, ${classItem.color}dd 100%)` }}
-        >
-          Join Class →
-        </button>
-      </div>
-    </div>
-  );
-
   const renderThreeParts = (classes, color) => {
     if (classes.length === 0) {
       return (
@@ -208,10 +147,10 @@ const Courses = () => {
                   {isTeacher && (
                     <div className="admin-actions">
                       <button className="edit-btn" onClick={() => handleOpenModal(classes.find(c => c.name === item.name))}>
-                        <span>✏️</span> Edit
+                        <span className="btn-icon">✏️</span> Edit
                       </button>
                       <button className="delete-btn" onClick={() => handleDelete(classes.find(c => c.name === item.name)._id)}>
-                        <span>🗑️</span> Delete
+                        <span className="btn-icon">🗑️</span> Delete
                       </button>
                     </div>
                   )}

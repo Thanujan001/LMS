@@ -148,6 +148,7 @@
 .class-name-section {
   flex: 1;
 }
+
 /**/
 .class-name {
   font-size: 1.2rem;
@@ -514,58 +515,63 @@
 }
 
 .admin-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid #f8f9fa;
-  justify-content: center;
+  display: flex !important;
+  gap: 1rem !important;
+  margin-top: 1.5rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 2px solid #f8f9fa !important;
+  justify-content: space-between !important;
+  width: 100% !important;
 }
 
-.edit-btn,
-.delete-btn {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  max-width: 140px;
+/* Force Edit and Delete buttons to be same size and have correct colors */
+.admin-actions button.edit-btn,
+.admin-actions button.delete-btn {
+  padding: 0.8rem 1.2rem !important;
+  border: none !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+  flex: 1 !important;
+  min-width: 140px !important;
+  height: 50px !important;
 }
 
-.edit-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
+.admin-actions button.edit-btn {
+  background: #0072ff !important;
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%) !important;
+  color: white !important;
 }
 
-.edit-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  filter: brightness(1.1);
+.admin-actions button.edit-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4) !important;
+  filter: brightness(1.1) !important;
 }
 
-.delete-btn {
-  background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-  color: white;
+.admin-actions button.delete-btn {
+  background: #d63031 !important;
+  background: linear-gradient(135deg, #ff7675 0%, #d63031 100%) !important;
+  color: white !important;
 }
 
-.delete-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(214, 48, 49, 0.3);
-  filter: brightness(1.1);
+.admin-actions button.delete-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 25px rgba(214, 48, 49, 0.3) !important;
+  filter: brightness(1.1) !important;
 }
 
-.edit-btn span,
-.delete-btn span {
-  font-size: 1.1rem;
+.admin-actions button.edit-btn .btn-icon,
+.admin-actions button.delete-btn .btn-icon {
+  font-size: 1.2rem !important;
+  color: white !important;
 }
 
 /* Modal Styling */
