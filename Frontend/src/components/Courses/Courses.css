@@ -148,7 +148,7 @@
 .class-name-section {
   flex: 1;
 }
-/*hk*/
+
 .class-name {
   font-size: 1.2rem;
   font-weight: 700;
@@ -515,38 +515,57 @@
 
 .admin-actions {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #f0f0f0;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f8f9fa;
+  justify-content: center;
 }
 
-.edit-btn, .delete-btn {
-  padding: 0.5rem 1rem;
+.edit-btn,
+.delete-btn {
+  padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.85rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  max-width: 140px;
 }
 
 .edit-btn {
-  background: #ecf0f1;
-  color: #2c3e50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
 }
 
 .edit-btn:hover {
-  background: #dfe6e9;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  filter: brightness(1.1);
 }
 
 .delete-btn {
-  background: #ff7675;
+  background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
   color: white;
 }
 
 .delete-btn:hover {
-  background: #d63031;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(214, 48, 49, 0.3);
+  filter: brightness(1.1);
+}
+
+.edit-btn span,
+.delete-btn span {
+  font-size: 1.1rem;
 }
 
 /* Modal Styling */
@@ -593,7 +612,8 @@
   color: #34495e;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 0.8rem;
   border: 2px solid #edeff2;
@@ -602,7 +622,8 @@
   transition: all 0.3s ease;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
   border-color: #667eea;
   outline: none;
 }
@@ -614,7 +635,8 @@
   margin-top: 2rem;
 }
 
-.cancel-btn, .submit-btn {
+.cancel-btn,
+.submit-btn {
   padding: 0.8rem 2rem;
   border-radius: 10px;
   font-weight: 700;
@@ -655,4 +677,34 @@
   margin-bottom: 2rem;
   text-align: center;
   border: 1px solid #ff7675;
+}
+
+.no-classes-found {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  margin: 2rem 0;
+}
+
+.no-classes-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.no-classes-found h3 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.no-classes-found p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
 }
