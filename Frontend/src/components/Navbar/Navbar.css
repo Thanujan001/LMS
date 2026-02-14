@@ -1,8 +1,8 @@
 .navbar {
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
   color: white;
   padding: 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -28,6 +28,7 @@
 .navbar-menu {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .navbar-nav {
@@ -100,7 +101,7 @@
 }
 
 .logout-btn {
-  background: #e74c3c;
+  background: #3498db;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -112,18 +113,25 @@
 }
 
 .logout-btn:hover {
-  background: #c0392b;
+  background: #2980b9;
   transform: translateY(-1px);
 }
 
 .mobile-menu-btn {
-  display: none;
+  display: flex;
   flex-direction: column;
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   padding: 0.5rem;
   gap: 3px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .mobile-menu-btn span {
@@ -131,77 +139,70 @@
   height: 3px;
   background: white;
   border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Desktop dropdown menu styles */
+.navbar-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  flex-direction: column;
+  padding: 1rem;
+  min-width: 200px;
+  transform: translateY(-20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 12px 12px;
+  z-index: 1000;
+}
+
+.navbar-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar-nav {
+  flex-direction: column;
+  width: 100%;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transform: translateX(-10px);
+  opacity: 0;
   transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .navbar-container {
-    padding: 0 1rem;
-  }
-
-  .navbar-brand h2 {
-    font-size: 1.2rem;
-  }
-
-  .navbar-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #2c3e50;
-    flex-direction: column;
-    padding: 1rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .navbar-menu.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .navbar-nav {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-  }
-
-  .nav-link {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 1rem;
-  }
-
-  .navbar-user {
-    display: none;
-  }
-
-  .mobile-menu-btn {
-    display: flex;
-  }
-
-  .navbar-menu.active ~ .mobile-menu-btn span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .navbar-menu.active ~ .mobile-menu-btn span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .navbar-menu.active ~ .mobile-menu-btn span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-  }
+.navbar-menu.active .nav-link {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-@media (max-width: 480px) {
-  .navbar-container {
-    height: 60px;
-  }
-  
-  .navbar-brand h2 {
-    font-size: 1rem;
-  }
+.navbar-menu.active .nav-link:nth-child(1) { transition-delay: 0.05s; }
+.navbar-menu.active .nav-link:nth-child(2) { transition-delay: 0.1s; }
+.navbar-menu.active .nav-link:nth-child(3) { transition-delay: 0.15s; }
+.navbar-menu.active .nav-link:nth-child(4) { transition-delay: 0.2s; }
+.navbar-menu.active .nav-link:nth-child(5) { transition-delay: 0.25s; }
+
+/* Hamburger animation for desktop */
+.navbar-menu.active ~ .navbar-user .mobile-menu-btn span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-menu.active ~ .navbar-user .mobile-menu-btn span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-menu.active ~ .navbar-user .mobile-menu-btn span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }

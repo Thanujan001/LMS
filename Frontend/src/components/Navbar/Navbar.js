@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import './Navbar.css';
 
@@ -7,12 +7,11 @@ const Navbar = ({ currentPage, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'courses', label: 'Classes', icon: '📚' },
-    { id: 'assignments', label: 'Assignments', icon: '📝' },
-    { id: 'grades', label: 'Grades', icon: '📈' },
-    { id: 'calendar', label: 'Calendar', icon: '📅' },
-    { id: 'profile', label: 'Profile', icon: '👤' }
+    { id: 'dashboard', label: 'Dashboard', icon: '' },
+    { id: 'courses', label: 'Classes', icon: '' },
+    { id: 'assignments', label: 'Assignments', icon: '' },
+    { id: 'calendar', label: 'Calendar', icon: '' },
+    { id: 'profile', label: 'Profile', icon: '' }
   ];
 
   const handleLogout = () => {
@@ -23,8 +22,23 @@ const Navbar = ({ currentPage, onNavigate }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Close menu when clicking outside
+  const handleMenuClick = (e) => {
+    if (e.target.closest('.navbar-menu') || e.target.closest('.mobile-menu-btn')) {
+      return;
+    }
+    setIsMenuOpen(false);
+  };
+
+  // Close menu on escape key
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape' && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" onClick={handleMenuClick} onKeyDown={handleKeyDown}>
       <div className="navbar-container">
         <div className="navbar-brand">
           <h2>📚 NextGen LMS</h2>
@@ -41,7 +55,6 @@ const Navbar = ({ currentPage, onNavigate }) => {
                     setIsMenuOpen(false);
                   }}
                 >
-                  <span className="nav-icon">{item.icon}</span>
                   <span className="nav-label">{item.label}</span>
                 </button>
               </li>
@@ -57,13 +70,12 @@ const Navbar = ({ currentPage, onNavigate }) => {
           <button className="logout-btn" onClick={handleLogout}>
             Logout
           </button>
+          <button className="mobile-menu-btn" onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-
-        <button className="mobile-menu-btn" onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
     </nav>
   );

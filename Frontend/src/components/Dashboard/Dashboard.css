@@ -2,7 +2,7 @@
   padding: 2rem;
   max-width: 1600px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #ffffff;
   min-height: calc(100vh - 70px);
 }
 
@@ -11,10 +11,10 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 2.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8px 32px rgba(52, 152, 219, 0.2);
   color: white;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .section-count {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -132,7 +132,7 @@
 }
 
 .month-year {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -278,16 +278,16 @@
 }
 
 .calendar-day.has-event {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
-  border-color: #667eea;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
   font-weight: 700;
 }
 
 .calendar-day.has-event:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
 }
 
 .event-indicator {
@@ -326,8 +326,8 @@
 }
 
 .plan-card.in-progress {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-left-color: #4c51bf;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-left-color: #2980b9;
   color: white;
 }
 
@@ -337,8 +337,8 @@
 }
 
 .plan-card.upcoming {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border-left-color: #e03c7a;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-left-color: #2980b9;
   color: white;
 }
 

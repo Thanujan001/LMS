@@ -48,7 +48,7 @@
 }
 
 .counter button {
-  background: #667eea;
+  background: #3498db;
   color: white;
   border: none;
   width: 40px;
@@ -60,7 +60,7 @@
 }
 
 .counter button:hover {
-  background: #5a6fd8;
+  background: #2980b9;
 }
 
 .count {
@@ -71,17 +71,18 @@
 }
 
 .reset-btn {
-  background: #e74c3c;
+  background: #3498db;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 0.9rem;
   transition: background 0.3s ease;
 }
 
 .reset-btn:hover {
-  background: #c0392b;
+  background: #2980b9;
 }
 
 .features-section {

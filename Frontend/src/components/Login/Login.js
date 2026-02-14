@@ -7,7 +7,52 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { login } = useAuth();
+
+  const images = [
+    {
+      url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Students in lecture hall"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Group of female students"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1552589350-631276093e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Students collaborating"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1581382533508-14bc92515c2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "University study hall"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Students in modern study space"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Classroom with students"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Study hall environment"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      alt: "Female student studying"
+    }
+  ];
+
+  // Auto-rotate images
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,15 +82,21 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-illustration">
+        <div 
+          className="background-slideshow"
+          style={{ backgroundImage: `url(${images[currentImageIndex].url})` }}
+        >
+          <div className="background-overlay"></div>
+        </div>
         <div className="illustration-content">
-          <div className="education-graphic">
-            <div className="book-stack">
-              <div className="book book-1">📘</div>
-              <div className="book book-2">📗</div>
-              <div className="book book-3">📙</div>
-            </div>
-            <div className="graduation-cap">🎓</div>
-            <div className="lightbulb">💡</div>
+          <div className="image-indicators">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                onClick={() => setCurrentImageIndex(index)}
+              />
+            ))}
           </div>
           <h2>Learn. Grow. Succeed.</h2>
           <p>Join thousands of students in their learning journey</p>
@@ -54,7 +105,7 @@ const Login = () => {
       
       <div className="login-card">
         <div className="login-header">
-          <h1>📚 NextGen LMS</h1>
+          <h1> NextGen LMS</h1>
           <p>Welcome back! Please sign in to your account</p>
         </div>
 

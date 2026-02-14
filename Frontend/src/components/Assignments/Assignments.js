@@ -39,7 +39,6 @@ const Assignments = () => {
       priority: 'medium',
       points: 50,
       type: 'quiz',
-      grade: 85,
       feedback: 'Great understanding of ES6 features! Consider reviewing promise chaining for better async handling.'
     },
     {
@@ -81,11 +80,10 @@ const Assignments = () => {
       description: 'Create an interactive webpage demonstrating various CSS animation techniques and transitions.',
       dueDate: '2024-01-22',
       submittedDate: '2024-01-21',
-      status: 'graded',
+      status: 'completed',
       priority: 'low',
       points: 60,
       type: 'project',
-      grade: 92,
       feedback: 'Excellent use of keyframe animations! The interactive elements are very engaging.'
     }
   ];
@@ -95,7 +93,7 @@ const Assignments = () => {
     { id: 'pending', label: 'Pending', count: assignments.filter(a => a.status === 'pending').length },
     { id: 'in_progress', label: 'In Progress', count: assignments.filter(a => a.status === 'in_progress').length },
     { id: 'submitted', label: 'Submitted', count: assignments.filter(a => a.status === 'submitted').length },
-    { id: 'graded', label: 'Graded', count: assignments.filter(a => a.status === 'graded').length }
+    { id: 'completed', label: 'Completed', count: assignments.filter(a => a.status === 'completed').length }
   ];
 
   const filteredAssignments = selectedFilter === 'all' 
@@ -107,7 +105,7 @@ const Assignments = () => {
       case 'pending': return '#e74c3c';
       case 'in_progress': return '#f39c12';
       case 'submitted': return '#3498db';
-      case 'graded': return '#27ae60';
+      case 'completed': return '#27ae60';
       case 'not_started': return '#95a5a6';
       default: return '#7f8c8d';
     }
@@ -220,10 +218,10 @@ const Assignments = () => {
                 </div>
               )}
 
-              {assignment.grade && (
-                <div className="assignment-grade">
-                  <span className="grade-label">Grade:</span>
-                  <span className="grade-value">{assignment.grade}%</span>
+              {assignment.feedback && (
+                <div className="assignment-feedback">
+                  <span className="feedback-label">Feedback:</span>
+                  <span className="feedback-value">{assignment.feedback}</span>
                 </div>
               )}
 
@@ -308,8 +306,8 @@ const Assignments = () => {
               {selectedAssignment.status === 'submitted' && (
                 <button className="btn-secondary">View Submission</button>
               )}
-              {selectedAssignment.status === 'graded' && (
-                <button className="btn-secondary">View Grade Details</button>
+              {selectedAssignment.status === 'completed' && (
+                <button className="btn-secondary">View Details</button>
               )}
             </div>
           </div>

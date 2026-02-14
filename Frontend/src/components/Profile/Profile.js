@@ -22,7 +22,6 @@ const Profile = () => {
       email: true,
       push: true,
       assignments: true,
-      grades: true,
       announcements: false
     }
   });
@@ -30,8 +29,7 @@ const Profile = () => {
   const stats = [
     { label: 'Courses Enrolled', value: '6', icon: '📚' },
     { label: 'Assignments Completed', value: '24', icon: '✅' },
-    { label: 'Total Points Earned', value: '1,850', icon: '🏆' },
-    { label: 'Average Grade', value: '87%', icon: '📊' }
+    { label: 'Total Points Earned', value: '1,850', icon: '🏆' }
   ];
 
   const achievements = [
@@ -45,7 +43,6 @@ const Profile = () => {
 
   const recentActivity = [
     { id: 1, type: 'assignment', title: 'Submitted React Component Project', date: '2024-01-18', icon: '📝' },
-    { id: 2, type: 'grade', title: 'Received grade for CSS Animation Showcase', date: '2024-01-17', icon: '📊' },
     { id: 3, type: 'course', title: 'Started Advanced CSS & Animations', date: '2024-01-15', icon: '📚' },
     { id: 4, type: 'achievement', title: 'Earned "Streak Master" achievement', date: '2024-01-12', icon: '🏆' },
     { id: 5, type: 'assignment', title: 'Completed JavaScript ES6+ Quiz', date: '2024-01-10', icon: '✅' }
@@ -339,14 +336,14 @@ const Profile = () => {
                 </div>
                 <div className="notification-item">
                   <div className="notification-info">
-                    <label>Grade Updates</label>
-                    <p>Notify when grades are posted</p>
+                    <label>Assignment Updates</label>
+                    <p>Notify when new assignments are posted</p>
                   </div>
                   <label className="toggle-switch">
                     <input
                       type="checkbox"
-                      checked={profileData.notifications.grades}
-                      onChange={() => handleNotificationChange('grades')}
+                      checked={profileData.notifications.assignments}
+                      onChange={() => handleNotificationChange('assignments')}
                     />
                     <span className="toggle-slider"></span>
                   </label>

@@ -11,17 +11,17 @@ const Dashboard = () => {
   ]);
 
   const stats = [
-    { title: 'Enrolled Courses', value: '6', icon: '📚', color: '#3498db', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-    { title: 'Completed Assignments', value: '24', icon: '✅', color: '#27ae60', gradient: 'linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)' },
-    { title: 'Upcoming Deadlines', value: '3', icon: '⏰', color: '#e74c3c', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-    { title: 'Overall Progress', value: '78%', icon: '📊', color: '#9b59b6', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' }
+    { title: 'Enrolled Courses', value: '6', icon: '', color: '#3498db', gradient: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)' },
+    { title: 'Completed Assignments', value: '24', icon: '', color: '#3498db', gradient: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)' },
+    { title: 'Upcoming Deadlines', value: '3', icon: '', color: '#3498db', gradient: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)' },
+    { title: 'Overall Progress', value: '78%', icon: '', color: '#3498db', gradient: 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)' }
   ];
 
   const joinedClasses = [
-    { id: 1, name: 'React Development', instructor: 'Dr. Smith', time: 'Mon, Wed, Fri 10:00 AM', room: '201', color: '#667eea' },
-    { id: 2, name: 'JavaScript Fundamentals', instructor: 'Prof. Johnson', time: 'Tue, Thu 2:00 PM', room: '305', color: '#764ba2' },
-    { id: 3, name: 'Web Design Principles', instructor: 'Ms. Davis', time: 'Wed 1:00 PM', room: '102', color: '#f093fb' },
-    { id: 4, name: 'Database Management', instructor: 'Dr. Wilson', time: 'Mon, Wed 3:00 PM', room: '404', color: '#56ab2f' }
+    { id: 1, name: 'React Development', instructor: 'Dr. Smith', time: 'Mon, Wed, Fri 10:00 AM', room: '201', color: '#3498db' },
+    { id: 2, name: 'JavaScript Fundamentals', instructor: 'Prof. Johnson', time: 'Tue, Thu 2:00 PM', room: '305', color: '#3498db' },
+    { id: 3, name: 'Web Design Principles', instructor: 'Ms. Davis', time: 'Wed 1:00 PM', room: '102', color: '#3498db' },
+    { id: 4, name: 'Database Management', instructor: 'Dr. Wilson', time: 'Mon, Wed 3:00 PM', room: '404', color: '#3498db' }
   ];
 
   const monthlyPlan = [
@@ -44,7 +44,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-header">
         <div className="header-content">
-          <h1>Welcome back, {user?.name}! 👋</h1>
+          <h1>{user?.name}!</h1>
           <p>Here's your personalized learning dashboard</p>
         </div>
         <div className="header-date">

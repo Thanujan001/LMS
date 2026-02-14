@@ -7,14 +7,14 @@ export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3
 
 // Theme colors
 export const COLORS = {
-  primary: '#667eea',
-  secondary: '#764ba2',
-  success: '#27ae60',
-  warning: '#f39c12',
-  error: '#e74c3c',
+  primary: '#3498db',
+  secondary: '#2980b9',
+  success: '#3498db',
+  warning: '#3498db',
+  error: '#3498db',
   info: '#3498db',
-  light: '#ecf0f1',
-  dark: '#2c3e50'
+  light: '#3498db',
+  dark: '#3498db'
 };
 
 // Breakpoints for responsive design

@@ -1,7 +1,7 @@
 .login-container {
   min-height: 100vh;
   display: flex;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #ffffff;
 }
 
 .login-illustration {
@@ -9,64 +9,74 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  padding: 2rem;
   color: white;
+  position: relative;
+  overflow: hidden;
 }
 
 .illustration-content {
   text-align: center;
-  max-width: 500px;
-}
-
-.education-graphic {
+  max-width: 600px;
   position: relative;
-  margin-bottom: 3rem;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 3;
+  padding: 2rem;
 }
 
-.book-stack {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: float 3s ease-in-out infinite;
-}
-
-.book {
-  font-size: 4rem;
-  margin: -0.5rem 0;
-  animation: bookFloat 2s ease-in-out infinite;
-}
-
-.book-1 {
-  animation-delay: 0s;
-}
-
-.book-2 {
-  animation-delay: 0.3s;
-}
-
-.book-3 {
-  animation-delay: 0.6s;
-}
-
-.graduation-cap {
+.background-slideshow {
   position: absolute;
-  top: -20px;
-  right: -50px;
-  font-size: 3rem;
-  animation: bounce 2s ease-in-out infinite;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 2s ease-in-out;
+  z-index: 1;
 }
 
-.lightbulb {
+.background-overlay {
   position: absolute;
-  bottom: 20px;
-  left: -50px;
-  font-size: 2.5rem;
-  animation: glow 2s ease-in-out infinite alternate;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.7) 0%, rgba(41, 128, 185, 0.8) 100%);
+  z-index: 2;
+}
+
+
+.image-indicators {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 4;
+  margin-bottom: 2rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+
+.indicator.active {
+  background: white;
+  border-color: white;
 }
 
 .illustration-content h2 {
@@ -115,12 +125,25 @@
   }
 }
 
-@keyframes bookFloat {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px) scale(0.95);
   }
-  50% {
-    transform: translateY(-5px) rotate(2deg);
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -203,7 +226,7 @@
 
 .login-btn {
   width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   border: none;
   padding: 0.875rem;
@@ -248,19 +271,19 @@
 }
 
 .demo-btn {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  color: #495057;
+  background: #3498db;
+  border: 1px solid #3498db;
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: all 0.2s ease;
 }
 
 .demo-btn:hover {
-  background: #e9ecef;
-  border-color: #adb5bd;
+  background: #2980b9;
+  border-color: #2980b9;
 }
 
 .login-footer {
@@ -317,27 +340,13 @@
 
 @media (max-width: 768px) {
   .login-illustration {
-    padding: 1.5rem;
+    padding: 1rem;
     min-height: 35vh;
   }
   
-  .education-graphic {
-    height: 150px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .book {
-    font-size: 3rem;
-  }
-  
-  .graduation-cap {
-    font-size: 2.5rem;
-    right: -30px;
-  }
-  
-  .lightbulb {
-    font-size: 2rem;
-    left: -30px;
+  .student-graphic {
+    height: 250px;
+    margin-bottom: 1rem;
   }
   
   .illustration-content h2 {
